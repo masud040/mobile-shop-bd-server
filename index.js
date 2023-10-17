@@ -28,6 +28,12 @@ async function run() {
       const cursor = await productCollections.find(query).toArray();
       res.send(cursor);
     });
+    app.get("/product/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await productCollections.findOne(query);
+      res.send(result);
+    });
     app.post("/products", async (req, res) => {
       const product = req.body;
       const result = await productCollections.insertOne(product);
