@@ -52,6 +52,12 @@ async function run() {
       const result = await cartCollections.insertOne(product);
       res.send(result);
     });
+    app.delete("/cartProducts/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await cartCollections.deleteOne(query);
+      res.send(result);
+    });
     // brands
     app.get("/brands", async (req, res) => {
       const result = await brandCollections.find().toArray();
