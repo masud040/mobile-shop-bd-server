@@ -23,6 +23,8 @@ async function run() {
     const productCollections = client.db("ProductDB").collection("product");
     const brandCollections = client.db("BrandDB").collection("brand");
     const cartCollections = client.db("CartDB").collection("cart");
+    const bannerCollections = client.db("BannerDB").collection("banner");
+    // brandProduct
     app.get("/products/:brandName", async (req, res) => {
       const brandName = req.params.brandName;
       const query = { brandName: brandName };
@@ -40,13 +42,24 @@ async function run() {
       const result = await productCollections.insertOne(product);
       res.send(result);
     });
-    app.post("/cartProducts", async (req, res) => {
-      const product = req.body;
-      const result = cartCollections.insertOne(product);
+    // cart Product
+    app.get("/cartProducts", async (req, res) => {
+      const result = await cartCollections.find().toArray();
       res.send(result);
     });
+    app.post("/cartProducts", async (req, res) => {
+      const product = req.body;
+      const result = await cartCollections.insertOne(product);
+      res.send(result);
+    });
+    // brands
     app.get("/brands", async (req, res) => {
       const result = await brandCollections.find().toArray();
+      res.send(result);
+    });
+
+    app.get("/banners", async (req, res) => {
+      const result = await bannerCollections.find().toArray();
       res.send(result);
     });
 
