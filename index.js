@@ -19,7 +19,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
     const productCollections = client.db("ProductDB").collection("product");
     const brandCollections = client.db("BrandDB").collection("brand");
     const cartCollections = client.db("CartDB").collection("cart");
@@ -95,10 +94,10 @@ async function run() {
       res.send(result);
     });
 
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
   }
 }
